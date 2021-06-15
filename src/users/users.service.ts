@@ -18,4 +18,8 @@ export class UsersService {
       data: { ...data, password: hashedPassword },
     });
   }
+
+  async findOne(email: string): Promise<User> {
+    return this.prisma.user.findUnique({ where: { email } });
+  }
 }
