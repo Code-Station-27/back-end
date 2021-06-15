@@ -19,7 +19,15 @@ model User {
 }
 
 model State {
-  id   String @default(uuid()) @id
-  name String
-  uf   String @unique
+  id     String @default(uuid()) @id
+  name   String
+  uf     String @unique
+  cities City[]
+}
+
+model City {
+  id       String @default(uuid()) @id
+  name     String
+  state    State @relation(fields: [state_uf], references: [uf])
+  state_uf String
 }
