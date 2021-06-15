@@ -17,3 +17,9 @@ model User {
   password String
   phone    String
 }
+
+model State {
+  id   String @default(uuid()) @id
+  name String
+  uf   String @unique
+}
