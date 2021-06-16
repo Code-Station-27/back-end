@@ -25,6 +25,10 @@ export class UsersService {
         password: false,
         city_id: false,
         phone: true,
+        district: true,
+        number: true,
+        street: true,
+        type: true,
         city: {
           include: {
             state: true,
