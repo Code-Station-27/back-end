@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { TokensService } from 'src/tokens/tokens.service';
 
 import { BcryptService } from '../shared/services/bcrypt.service';
 import { PrismaService } from '../shared/services/prisma.service';
@@ -19,7 +20,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
     }),
   ],
   providers: [
@@ -29,6 +30,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     BcryptService,
     PrismaService,
     JwtStrategy,
+    TokensService,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
