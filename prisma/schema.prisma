@@ -22,11 +22,20 @@ model User {
   street   String
   number   String
   district String
+  token    User_Token?
 }
 
 enum UserType {
   COMMON
   PERSONAL
+}
+
+model User_Token {
+  id            String @default(uuid()) @id
+  token         String
+  refresh_token String
+  user          User   @relation(fields: [user_id], references: [id])
+  user_id       String @unique
 }
 
 model State {
