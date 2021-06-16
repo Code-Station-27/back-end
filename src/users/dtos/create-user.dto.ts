@@ -1,4 +1,12 @@
-import { IsEmail, IsPhoneNumber, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsOptional,
+  IsPhoneNumber,
+  IsString,
+  IsUUID,
+} from 'class-validator';
+
+import { UserType } from '.prisma/client';
 
 export class CreateUserDto {
   @IsString()
@@ -12,4 +20,20 @@ export class CreateUserDto {
 
   @IsPhoneNumber()
   phone: string;
+
+  @IsUUID()
+  city: string;
+
+  @IsOptional()
+  @IsString()
+  type: UserType;
+
+  @IsString()
+  street: string;
+
+  @IsString()
+  number: string;
+
+  @IsString()
+  district: string;
 }

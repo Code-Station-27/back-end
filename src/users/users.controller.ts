@@ -1,8 +1,8 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { User as UserModel } from '@prisma/client';
 
 import { Public } from '../shared/decorators/public.decorator';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { UserWithoutPassword } from './types/user';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -11,7 +11,10 @@ export class UsersController {
 
   @Public()
   @Post()
-  async create(@Body() data: CreateUserDto): Promise<UserModel> {
-    return this.usersService.create(data);
+  async create(@Body() data: CreateUserDto): Promise<UserWithoutPassword> {
+    return this.usersService.create({
+      ...data,
+      city: { connect: { id: data.city } },
+    });
   }
 }

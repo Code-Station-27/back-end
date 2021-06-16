@@ -16,6 +16,17 @@ model User {
   email    String @unique
   password String
   phone    String
+  city     City @relation(fields: [city_id], references: [id])
+  city_id  String
+  type     UserType @default(COMMON)
+  street   String
+  number   String
+  district String
+}
+
+enum UserType {
+  COMMON
+  PERSONAL
 }
 
 model State {
@@ -30,4 +41,5 @@ model City {
   name     String
   state    State @relation(fields: [state_uf], references: [uf])
   state_uf String
+  users    User[]
 }
