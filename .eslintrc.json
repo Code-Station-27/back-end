@@ -59,8 +59,11 @@
     ],
     "import/no-extraneous-dependencies": [
       "error",
-      { "devDependencies": ["**/*.spec.js"] }
-    ]
+      { "devDependencies": ["**/*.spec.ts"] }
+    ],
+    "@typescript-eslint/no-unused-vars": ["warn", {
+      "varsIgnorePattern": "^_"
+    }]
   },
   "settings": {
     "import/resolver": {
