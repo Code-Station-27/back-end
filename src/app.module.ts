@@ -1,6 +1,7 @@
-import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+// import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import * as redisStore from 'cache-manager-redis-store';
+// import * as redisStore from 'cache-manager-redis-store';
 
 import { AuthModule } from './auth/auth.module';
 import { CitiesModule } from './cities/cities.module';
@@ -17,17 +18,17 @@ import { UsersModule } from './users/users.module';
     CitiesModule,
     HealthModule,
     TokensModule,
-    CacheModule.register({
-      store: redisStore,
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
-    }),
+    // CacheModule.register({
+    //   store: redisStore,
+    //   host: process.env.REDIS_HOST,
+    //   port: process.env.REDIS_PORT,
+    // }),
   ],
-  providers: [
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor,
-    },
-  ],
+  // providers: [
+  //   {
+  //     provide: APP_INTERCEPTOR,
+  //     useClass: CacheInterceptor,
+  //   },
+  // ],
 })
 export class AppModule {}
