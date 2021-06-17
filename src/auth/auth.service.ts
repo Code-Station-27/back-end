@@ -6,7 +6,7 @@ import { UsersService } from 'src/users/users.service';
 
 import { User } from '.prisma/client';
 
-import { ITokenResponse } from './types/auth';
+import { ILoginResponse, ITokenResponse } from './types/auth';
 
 type IUserPayload = {
   sub: string;
@@ -36,7 +36,7 @@ export class AuthService {
     return null;
   }
 
-  async login(user: User): Promise<ITokenResponse> {
+  async login(user: User): Promise<ILoginResponse> {
     const refresh_token = await this.bcryptService.hash(user.email);
     const access_token = this.jwtService.sign({
       sub: user.id,
@@ -49,6 +49,7 @@ export class AuthService {
       user: { connect: { id: user.id } },
     });
     return {
+      user,
       access_token,
       refresh_token,
     };

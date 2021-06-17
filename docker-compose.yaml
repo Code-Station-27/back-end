@@ -5,6 +5,10 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.postgres
+    environment: 
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes: 
+      - pg-data:/var/lib/postgresql/data
     ports: 
       - 5432:5432
 
@@ -12,3 +16,6 @@ services:
     image: redis:alpine
     ports: 
       - 6379:6379
+
+volumes: 
+  pg-data:
