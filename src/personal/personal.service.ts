@@ -17,7 +17,11 @@ export class PersonalService {
     });
   }
 
-  async findByCityId(id: string): Promise<Personal[]> {
+  async findByCityId(
+    id: string,
+    page: number,
+    amountPerPage: number,
+  ): Promise<Personal[]> {
     return this.prisma.personal.findMany({
       where: {
         user: {
@@ -25,6 +29,8 @@ export class PersonalService {
         },
       },
       include: { user: true },
+      skip: (page - 1) * amountPerPage,
+      take: amountPerPage,
     });
   }
 }

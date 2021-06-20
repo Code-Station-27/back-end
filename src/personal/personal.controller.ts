@@ -12,7 +12,11 @@ export class PersonalController {
   async findAll(@Query() query): Promise<Personal[]> {
     const { city, page, amountPerPage } = query;
     if (city) {
-      return this.personalService.findByCityId(city);
+      return this.personalService.findByCityId(
+        city,
+        Number(page),
+        Number(amountPerPage),
+      );
     }
     return this.personalService.findAll(Number(page), Number(amountPerPage));
   }
