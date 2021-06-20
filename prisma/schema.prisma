@@ -23,6 +23,17 @@ model User {
   number   String
   district String
   token    User_Token?
+  personal Personal?
+  trainings Training[]
+}
+
+model Personal {
+  id       String @default(uuid()) @id
+  user     User @relation(fields: [user_id], references: [id])
+  user_id  String
+  price    Decimal
+  rating   Decimal?
+  trainings Training[]
 }
 
 enum UserType {
@@ -51,4 +62,14 @@ model City {
   state    State @relation(fields: [state_uf], references: [uf])
   state_uf String
   users    User[]
+}
+
+model Training {
+  id          String @default(uuid()) @id
+  user        User @relation(fields: [user_id], references: [id])
+  user_id     String
+  personal    Personal @relation(fields: [personal_id], references: [id])
+  personal_id String
+  day         Int
+  hour        Int
 }
