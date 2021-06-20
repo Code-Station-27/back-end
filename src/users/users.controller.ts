@@ -11,7 +11,15 @@ export class UsersController {
 
   @Public()
   @Post()
-  async create(@Body() data: CreateUserDto): Promise<UserWithoutPassword> {
+  async create(@Body() body: CreateUserDto): Promise<UserWithoutPassword> {
+    const { price, ...data } = body;
+    if (body.type === 'PERSONAL') {
+      return this.usersService.create({
+        ...data,
+        city: { connect: { id: data.city } },
+        personal: { create: { price, rating: null } },
+      });
+    }
     return this.usersService.create({
       ...data,
       city: { connect: { id: data.city } },

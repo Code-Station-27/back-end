@@ -1,9 +1,11 @@
 import {
+  IsDecimal,
   IsEmail,
   IsOptional,
   IsPhoneNumber,
   IsString,
   IsUUID,
+  ValidateIf,
 } from 'class-validator';
 
 import { UserType } from '.prisma/client';
@@ -36,4 +38,8 @@ export class CreateUserDto {
 
   @IsString()
   district: string;
+
+  @ValidateIf(a => a.type === UserType.PERSONAL)
+  @IsDecimal()
+  price: number;
 }
