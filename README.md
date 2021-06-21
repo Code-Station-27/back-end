@@ -27,3 +27,12 @@ yarn start:dev
 - [@kvwillian](https://github.com/kvwillian)
 - [@revooolt](https://github.com/revooolt)
 - [@tech3br](https://github.com/tech3br)
+
+### **Contribuição**
+
+Contribuições são sempre bem-vindas!
+
+### :book: **Licença**
+ Feito em 2021 para o Code/Station Hackaton.
+ 
+ Dê uma :star: se esse projeto te ajudou!
