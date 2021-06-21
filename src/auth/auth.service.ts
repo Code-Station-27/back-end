@@ -23,10 +23,7 @@ export class AuthService {
     private tokenService: TokensService,
   ) {}
 
-  async validateUser(
-    email: string,
-    password: string,
-  ): Promise<Omit<User, 'password'>> {
+  async validateUser(email: string, password: string) {
     const user = await this.usersService.findOne(email);
     const isMatch = await this.bcryptService.compare(password, user.password);
     if (user && isMatch) {
