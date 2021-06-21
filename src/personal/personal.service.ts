@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/services/prisma.service';
+import { userSelect } from 'src/shared/utils/user.select';
 
 import { Personal } from '.prisma/client';
 
@@ -31,6 +32,21 @@ export class PersonalService {
       include: { user: true },
       skip: (page - 1) * amountPerPage,
       take: amountPerPage,
+    });
+  }
+
+  async findById(id: string) {
+    return this.prisma.personal.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        user: {
+          select: {
+            ...userSelect,
+          },
+        },
+      },
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 
 import { Personal } from '.prisma/client';
 
@@ -19,5 +19,10 @@ export class PersonalController {
       );
     }
     return this.personalService.findAll(Number(page), Number(amountPerPage));
+  }
+
+  @Get(':id')
+  async find(@Param('id') id: string) {
+    return this.personalService.findById(id);
   }
 }

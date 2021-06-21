@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/shared/services/prisma.service';
+import { userSelect } from 'src/shared/utils/user.select';
 
 import { Personal, Prisma, Training } from '.prisma/client';
 
@@ -52,8 +53,20 @@ export class TrainingsService {
         id,
       },
       include: {
-        user: true,
-        trainings: true,
+        user: {
+          select: {
+            ...userSelect,
+          },
+        },
+        trainings: {
+          include: {
+            user: {
+              select: {
+                ...userSelect,
+              },
+            },
+          },
+        },
       },
     });
   }

@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { userSelect } from 'src/shared/utils/user.select';
 
 import { BcryptService } from '../shared/services/bcrypt.service';
 import { PrismaService } from '../shared/services/prisma.service';
@@ -33,11 +34,18 @@ export class UsersService {
     }
     return this.prisma.user.create({
       data: user,
+      select: { ...userSelect },
+    });
+  }
+
+  async findOne(email: string) {
+    return this.prisma.user.findUnique({
+      where: { email },
       select: {
         id: true,
         name: true,
         email: true,
-        password: false,
+        password: true,
         city_id: false,
         phone: true,
         district: true,
@@ -49,14 +57,8 @@ export class UsersService {
             state: true,
           },
         },
+        personal: true,
       },
-    });
-  }
-
-  async findOne(email: string): Promise<User> {
-    return this.prisma.user.findUnique({
-      where: { email },
-      include: { city: { include: { state: true } } },
     });
   }
 }
