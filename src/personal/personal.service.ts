@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/services/prisma.service';
 import { userSelect } from 'src/shared/utils/user.select';
 
-import { Personal } from '.prisma/client';
+import { Personal, UserType } from '.prisma/client';
 
 @Injectable()
 export class PersonalService {
@@ -36,17 +36,16 @@ export class PersonalService {
   }
 
   async findById(id: string) {
-    return this.prisma.personal.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        user: {
-          select: {
-            ...userSelect,
-          },
-        },
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        ...userSelect,
+        personal: true,
       },
     });
+    if (user.type !== UserType.PERSONAL) {
+      throw new BadRequestException('Provided id is not from a personal');
+    }
+    return user;
   }
 }
