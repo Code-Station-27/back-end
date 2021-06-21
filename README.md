@@ -20,7 +20,7 @@ docker-compose up -d
 yarn start:dev
 ```
 
-### **Authors**
+### **Autores**
 
 - [@FilipePfluck](https://github.com/FilipePfluck)
 - [@benjamim015](https://github.com/benjamim015)
