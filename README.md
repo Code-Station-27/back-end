@@ -19,3 +19,11 @@ Para iniciar em modo de desenvolvimento:
 docker-compose up -d
 yarn start:dev
 ```
+
+### **Authors**
+
+- [@FilipePfluck](https://github.com/FilipePfluck)
+- [@benjamim015](https://github.com/benjamim015)
+- [@kvwillian](https://github.com/kvwillian)
+- [@revooolt](https://github.com/revooolt)
+- [@tech3br](https://github.com/tech3br)
